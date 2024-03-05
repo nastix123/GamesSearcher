@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TheGameSearching</string>
+    <string name="search">Search</string>
+    <string name="witcher">The Witcher</string>
+    <string name ="genre">GENRE</string>
+    <string name="developers">DEVELOPERS</string>
+    <string name="year_of_release">YEAR OF RELEASE</string>
+    <string name="description">DESCRIPTION</string>
+    <string name="err_genres">Error with flow of genres</string>
+    <string name="platforms">PLATFORMS</string>
+</resources>
