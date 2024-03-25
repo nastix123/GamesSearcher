@@ -8,6 +8,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import by.eapp.thegamesearching.data.remote.models.GameDto
 import by.eapp.thegamesearching.data.remote.models.GenreDto
+import by.eapp.thegamesearching.domain.model.Game
+import by.eapp.thegamesearching.domain.model.Genre
 import by.eapp.thegamesearching.domain.use_cases.GetListOfGamesByGenreUseCase
 import by.eapp.thegamesearching.domain.use_cases.GetListOfGamesUseCase
 import by.eapp.thegamesearching.domain.use_cases.GetListOfGenresUseCase
@@ -50,14 +52,14 @@ class HomeScreenViewModel @Inject constructor(
     private val _homeUiState = MutableStateFlow(HomeScreenUiState())
     val homeUiState = _homeUiState.asStateFlow()
 
-    private val _games: MutableStateFlow<PagingData<GameDto>> = MutableStateFlow(PagingData.empty())
-    val games: MutableStateFlow<PagingData<GameDto>> get() = _games
+    private val _games: MutableStateFlow<PagingData<Game>> = MutableStateFlow(PagingData.empty())
+    val games: MutableStateFlow<PagingData<Game>> get() = _games
 
-    private val _genres = MutableStateFlow<List<GenreDto>>(emptyList())
-    val genres: MutableStateFlow<List<GenreDto>> get() = _genres
+    private val _genres = MutableStateFlow<List<Genre>>(emptyList())
+    val genres: MutableStateFlow<List<Genre>> get() = _genres
 
-    private val _featuredGames: MutableStateFlow<PagingData<GameDto>> = MutableStateFlow(PagingData.empty())
-    val featuredGames: MutableStateFlow<PagingData<GameDto>> get() = _featuredGames
+    private val _featuredGames: MutableStateFlow<PagingData<Game>> = MutableStateFlow(PagingData.empty())
+    val featuredGames: MutableStateFlow<PagingData<Game>> get() = _featuredGames
 
 
 
@@ -95,8 +97,7 @@ class HomeScreenViewModel @Inject constructor(
                     when (val result = getListOfSearchingGamesUseCase.invoke(query = input)) {
                         is GetListOfSearchingGamesUseCase.Result.Success -> {
                             result.results.collectLatest {it ->
-                                if (it == null) _searchGamesState.update { SearchScreenState(isLoading = true) }
-                                else _searchGamesState.update { state ->
+                                _searchGamesState.update { state ->
                                     state.copy(
                                         result = it
                                     )

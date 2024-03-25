@@ -18,11 +18,13 @@ class RemoteDataSource @Inject constructor(
 
     fun getPagingListOfGamesByGenre(genre: String) = Pager(
         config = PagingConfig(pageSize = 30),
-        pagingSourceFactory = { GamesByGenreSource(apiService, genre)}
+        pagingSourceFactory = { GamesByGenreSource(apiService,/*genre*/)}
     ).flow
 
     fun getListOfSearchingGames(searchText: String) = Pager(
         config = PagingConfig(pageSize = 30),
-        pagingSourceFactory = { GamesBySearchingSource(apiService, searchText) }
+        pagingSourceFactory = { GamesBySearchingSource(apiService, /*searchText*/) }
     ).flow
 }
+
+fun String.isValid() = this.isNotBlank()
