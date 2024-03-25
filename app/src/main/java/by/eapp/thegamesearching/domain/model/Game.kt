@@ -5,9 +5,17 @@ import by.eapp.thegamesearching.data.remote.models.GameDto
 import by.eapp.thegamesearching.data.remote.models.PlatformDto
 
 
-@Stable
+
 data class Game(
     val id: Int,
     val name: String,
     val backgroundImage: String
 )
+
+
+
+
+
+
+
+
