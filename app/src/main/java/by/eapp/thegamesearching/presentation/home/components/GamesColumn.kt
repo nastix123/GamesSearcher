@@ -15,13 +15,14 @@ import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import by.eapp.thegamesearching.data.remote.models.GameDto
+import by.eapp.thegamesearching.domain.model.Game
 import by.eapp.thegamesearching.navigation.Screen
 import by.eapp.thegamesearching.presentation.home.HomeScreenUiEvents
 import by.eapp.thegamesearching.presentation.utils.ShimmerList
 
 @Composable
 fun GamesColumn(
-    listOfGames: LazyPagingItems<GameDto>,
+    listOfGames: LazyPagingItems<Game>,
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
@@ -57,7 +58,7 @@ fun GamesColumn(
                             index ->
                         listOfGames[index]?.let { game ->
                             GameItem(
-                                imageModel = game.background_image!!,
+                                imageModel = game.backgroundImage,
                                 contentDescription = game.name,
                                 title = game.name,
                                 gameId = game.id,

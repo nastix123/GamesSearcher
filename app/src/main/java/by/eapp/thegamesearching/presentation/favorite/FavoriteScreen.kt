@@ -9,15 +9,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import by.eapp.thegamesearching.navigation.BottomBar
+import by.eapp.thegamesearching.presentation.home.components.GamesColumn
 
 @Composable
 fun FavoriteScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    state: FavoritesScreenState
 ) {
+
     Scaffold (
         bottomBar = { BottomBar(navController = navController)}
     ) {paddingValues ->
@@ -26,8 +31,25 @@ fun FavoriteScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth().padding(paddingValues)
         ) {
-            Text(text = "FavoriteScreen")
+            if (state.emptyFavorites) {
+                Text(text = "Favorite is empty")
+            } else if (state.error != null) {
+                Text(text = state.error)
+            } else if (state.games.isNotEmpty()) {
+
+            }
+
         }
     }
 
+}
+
+@Preview
+@Composable
+fun FavoriteScreenPreview() {
+    val navController = rememberNavController()
+    FavoriteScreen(navController = navController,
+        state = FavoritesScreenState(
+
+        ))
 }

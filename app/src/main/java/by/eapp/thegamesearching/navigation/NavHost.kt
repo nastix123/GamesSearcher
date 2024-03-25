@@ -20,7 +20,7 @@ import by.eapp.thegamesearching.presentation.home.HomeScreenViewModel
 fun RootNavigationGraph(navController: NavHostController, modifier: Modifier = Modifier) {
 
     val viewModel: HomeScreenViewModel = hiltViewModel()
-    Log.d("NAvHost", "View model was created")
+        Log.d("NAvHost", "View model was created")
     NavHost(
         navController = navController,
         startDestination = Screen.Home.route,
