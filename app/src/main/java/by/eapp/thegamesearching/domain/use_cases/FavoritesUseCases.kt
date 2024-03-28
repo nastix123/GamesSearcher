@@ -1,7 +1,10 @@
 package by.eapp.thegamesearching.domain.use_cases
 
 import by.eapp.thegamesearching.data.local.GameEntity
+import by.eapp.thegamesearching.data.mappers.toGameEntity
+import by.eapp.thegamesearching.domain.model.Game
 import by.eapp.thegamesearching.domain.repository.FavoritesRepository
+import by.eapp.thegamesearching.domain.repository.GameDetailRepository
 import javax.inject.Inject
 
 class IsFavoriteUseCase @Inject constructor(
@@ -28,3 +31,10 @@ class DeleteGameUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(game: GameEntity) = favoritesRepository.deleteFavorite(game)
 }
+
+class AddFavoriteGameUseCase @Inject constructor(
+    private val favoritesRepository: FavoritesRepository
+) {
+    suspend operator fun invoke(game: Game) = favoritesRepository.addFavorite(game.toGameEntity())
+}
+

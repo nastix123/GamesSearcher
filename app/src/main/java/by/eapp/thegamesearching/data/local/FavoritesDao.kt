@@ -12,19 +12,19 @@ interface FavoritesDao {
     @Upsert
     suspend fun addFavorite(game: GameEntity)
 
-    @Query("SELECT * FROM favorites_table ORDER BY id DESC")
+    @Query("SELECT * FROM favorites ORDER BY id DESC")
     fun getAllFavorites(): Flow<List<GameEntity>>
 
-    @Query("SELECT * FROM favorites_table WHERE id =:id")
+    @Query("SELECT * FROM favorites WHERE id =:id")
     fun getFavoriteById(id: Int): GameEntity?
 
-    @Query("SELECT favorite FROM favorites_table WHERE id =:id")
+    @Query("SELECT isFavorite FROM favorites WHERE id =:id")
     fun isFavorite(id: Int): Boolean
 
     @Delete
     suspend fun deleteFavorite(game: GameEntity)
 
-    @Query("DELETE FROM favorites_table")
+    @Query("DELETE FROM favorites")
     suspend fun deleteAllFavorites()
 
 

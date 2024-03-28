@@ -7,34 +7,40 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import by.eapp.thegamesearching.navigation.BottomBar
-import by.eapp.thegamesearching.presentation.home.components.GamesColumn
 
 @Composable
 fun FavoriteScreen(
     navController: NavHostController,
-    state: FavoritesScreenState
+    viewModel: FavoritesViewModel
 ) {
-
+    val state by viewModel.favoriteUiState.collectAsState()
     Scaffold (
         bottomBar = { BottomBar(navController = navController)}
-    ) {paddingValues ->
+    ) { paddingValues ->
         Column (
-            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth().padding(paddingValues)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(paddingValues)
         ) {
             if (state.emptyFavorites) {
-                Text(text = "Favorite is empty")
+                Column (
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(text = "You haven't added anything yet")
+                }
+
             } else if (state.error != null) {
-                Text(text = state.error)
+                Text(text = state.error.toString())
             } else if (state.games.isNotEmpty()) {
 
             }
@@ -48,8 +54,6 @@ fun FavoriteScreen(
 @Composable
 fun FavoriteScreenPreview() {
     val navController = rememberNavController()
-    FavoriteScreen(navController = navController,
-        state = FavoritesScreenState(
-
-        ))
+    val favoritesViewModel = hiltViewModel<FavoritesViewModel>()
+    FavoriteScreen(navController = navController, viewModel = favoritesViewModel)
 }
