@@ -6,7 +6,6 @@ import by.eapp.thegamesearching.data.local.FavoritesDatabase
 import by.eapp.thegamesearching.data.pagination.GamesByGenreSource
 import by.eapp.thegamesearching.data.pagination.GamesBySearchingSource
 import by.eapp.thegamesearching.data.pagination.GamesSource
-import by.eapp.thegamesearching.data.pagination.RemoteDataSource
 import by.eapp.thegamesearching.data.remote.ApiService
 import by.eapp.thegamesearching.data.repository.FavoritesRepositoryImpl
 import by.eapp.thegamesearching.data.repository.GameDetailRepositoryImpl
@@ -14,9 +13,11 @@ import by.eapp.thegamesearching.data.repository.GamesRepositoryImpl
 import by.eapp.thegamesearching.domain.repository.FavoritesRepository
 import by.eapp.thegamesearching.domain.repository.GameDetailRepository
 import by.eapp.thegamesearching.domain.repository.GamesRepository
+import by.eapp.thegamesearching.domain.use_cases.AddFavoriteGameUseCase
 import by.eapp.thegamesearching.domain.use_cases.DeleteAllGamesUseCase
 import by.eapp.thegamesearching.domain.use_cases.DeleteGameUseCase
 import by.eapp.thegamesearching.domain.use_cases.GetAllFavoritesUseCase
+import by.eapp.thegamesearching.domain.use_cases.GetGameDetailUseCase
 import by.eapp.thegamesearching.domain.use_cases.GetListOfGamesByGenreUseCase
 import by.eapp.thegamesearching.domain.use_cases.GetListOfGamesUseCase
 import by.eapp.thegamesearching.domain.use_cases.GetListOfGenresUseCase
@@ -44,7 +45,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesDatabase(app:Application): FavoritesDatabase {
+    fun providesDatabase(app: Application): FavoritesDatabase {
         return Room.databaseBuilder(
             app,
             FavoritesDatabase::class.java,
@@ -63,8 +64,6 @@ object AppModule {
         .build()
 
 
-
-
     @Provides
     @Singleton
     fun providesAppService(retrofit: Retrofit) =
@@ -72,10 +71,11 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient = OkHttpClient
-        .Builder()
-        .addInterceptor(httpLoggingInterceptor)
-        .build()
+    fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+        OkHttpClient
+            .Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
 
     @Singleton
     @Provides
@@ -85,14 +85,24 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesFavoritesRepository(db:FavoritesDatabase): FavoritesRepository {
+    fun providesFavoritesRepository(db: FavoritesDatabase): FavoritesRepository {
         return FavoritesRepositoryImpl(db)
     }
 
     @Provides
     @Singleton
-    fun providesGamesRepository( apiService: ApiService, gamesSource: GamesSource, gamesBySearchingSource: GamesBySearchingSource, gamesByGenreSource: GamesByGenreSource): GamesRepository {
-        return GamesRepositoryImpl(apiService, gamesSource, gamesBySearchingSource, gamesByGenreSource)
+    fun providesGamesRepository(
+        apiService: ApiService,
+        gamesSource: GamesSource,
+        gamesBySearchingSource: GamesBySearchingSource,
+        gamesByGenreSource: GamesByGenreSource,
+    ): GamesRepository {
+        return GamesRepositoryImpl(
+            apiService,
+            gamesSource,
+            gamesBySearchingSource,
+            gamesByGenreSource
+        )
     }
 
     @Singleton
@@ -112,10 +122,22 @@ object AppModule {
         deleteAllGamesUseCase: DeleteAllGamesUseCase,
         getAllFavoritesUseCase: GetAllFavoritesUseCase,
         deleteGameUseCase: DeleteGameUseCase,
-        searchingGamesUseCase: GetListOfSearchingGamesUseCase
+        searchingGamesUseCase: GetListOfSearchingGamesUseCase,
+        getGameDetailUseCase: GetGameDetailUseCase,
+        addFavoriteGameUseCase: AddFavoriteGameUseCase
     ): UseCases {
         return UseCases(
-           gamesByGenre, allGames, genres, platformsUseCase, isFavoriteUseCase, deleteAllGamesUseCase, getAllFavoritesUseCase, deleteGameUseCase, searchingGamesUseCase
+            gamesByGenre,
+            allGames,
+            genres,
+            platformsUseCase,
+            isFavoriteUseCase,
+            deleteAllGamesUseCase,
+            getAllFavoritesUseCase,
+            deleteGameUseCase,
+            searchingGamesUseCase,
+            getGameDetailUseCase,
+            addFavoriteGameUseCase
         )
     }
 }

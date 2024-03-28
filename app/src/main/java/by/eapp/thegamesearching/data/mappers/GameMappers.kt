@@ -12,15 +12,20 @@ import by.eapp.thegamesearching.domain.model.Game
 import by.eapp.thegamesearching.domain.model.Genre
 import by.eapp.thegamesearching.domain.model.Platform
 
+fun Game.toGameEntity(): GameEntity {
+    return GameEntity(
+        id = id,
+        name = name,
+        backgroundImage = backgroundImage,
+        released = ""
+    )
+}
 fun GameDetailDto.toGameEntity(): GameEntity {
     return GameEntity(
         id = id,
         name = name,
         released = released,
         backgroundImage = background_image,
-        backgroundImageAdditional = background_image_additional,
-        description = description,
-        //developers = developers,
     )
 }
 
@@ -28,7 +33,7 @@ fun GameDto.toDomain(): Game {
     return Game(
         id = this.id,
         name = this.name,
-        backgroundImage = this.background_image!!
+        backgroundImage = this.background_image?:""
     )
 }
 
@@ -37,7 +42,7 @@ fun GameEntity.toDomain() : Game {
     return Game(
        id = this.id,
         name = this.name,
-        backgroundImage = this.backgroundImage!!
+        backgroundImage = this.backgroundImage?:""
     )
 }
 

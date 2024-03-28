@@ -90,9 +90,7 @@ dependencies {
     implementation ("androidx.compose.material:material-icons-extended")
     implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("androidx.compose.material:material:1.6.4")
-//    implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
-//    implementation("androidx.compose.material3:material3-adaptive:1.0.0-alpha06")
-//    implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.0.0-alpha05")
+
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
 
@@ -100,7 +98,6 @@ dependencies {
     // Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.49")
     kapt("com.google.dagger:hilt-android-compiler:2.49")
-    //implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt("androidx.hilt:hilt-compiler:1.2.0")
     implementation("androidx.hilt:hilt-work:1.2.0")
 
@@ -108,7 +105,6 @@ dependencies {
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     implementation ("androidx.room:room-ktx:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation ("androidx.room:room-paging:$room_version")
 
@@ -122,8 +118,9 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0")
     implementation ("androidx.work:work-runtime-ktx:2.9.0")
 
-//    debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("xmlpull:xmlpull:1.1.3.1") {
+        exclude(group = "xmlpull", module= "xpp3")
+    }
 
 
 }

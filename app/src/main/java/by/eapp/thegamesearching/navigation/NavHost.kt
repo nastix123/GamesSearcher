@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import by.eapp.thegamesearching.presentation.favorite.FavoriteScreen
+import by.eapp.thegamesearching.presentation.favorite.FavoritesViewModel
 import by.eapp.thegamesearching.presentation.gamedetail.GameDetailScreen
 
 import by.eapp.thegamesearching.presentation.home.HomeScreen
@@ -21,6 +22,7 @@ fun RootNavigationGraph(navController: NavHostController, modifier: Modifier = M
 
     val viewModel: HomeScreenViewModel = hiltViewModel()
         Log.d("NAvHost", "View model was created")
+    val favoritesViewModel: FavoritesViewModel = hiltViewModel()
     NavHost(
         navController = navController,
         startDestination = Screen.Home.route,
@@ -28,7 +30,7 @@ fun RootNavigationGraph(navController: NavHostController, modifier: Modifier = M
     ) {
         composable(Screen.Home.route) {
             HomeScreen(navController = navController, viewModel = viewModel) }
-        composable(Screen.Favorites.route) { FavoriteScreen(navController = navController)}
+        composable(Screen.Favorites.route) { FavoriteScreen(navController = navController, viewModel = favoritesViewModel)}
         composable(
             Screen.GameDetailScreen.route + "/{gameId}",
             arguments = listOf(navArgument("gameId") {

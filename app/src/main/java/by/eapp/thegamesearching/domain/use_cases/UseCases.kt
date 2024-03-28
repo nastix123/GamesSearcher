@@ -9,5 +9,7 @@ data class UseCases (
     val deleteAllGamesUseCase: DeleteAllGamesUseCase,
     val getAllFavoritesUseCase: GetAllFavoritesUseCase,
     val deleteGameUseCase: DeleteGameUseCase,
-    val searchingGames: GetListOfSearchingGamesUseCase
+    val searchingGames: GetListOfSearchingGamesUseCase,
+    val getGameDetails: GetGameDetailUseCase,
+    val addFavoriteGame: AddFavoriteGameUseCase
 )

@@ -10,10 +10,7 @@ data class GameEntity(
     @PrimaryKey
     val id: Int,
     val name: String,
-    val description: String,
     val released: String?,
     val backgroundImage: String?,
-    val backgroundImageAdditional: String? = null,
-    //val developers: String,
-    val favorite: Boolean? = null
+    val isFavorite: Boolean = false
 )
