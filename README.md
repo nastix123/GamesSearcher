@@ -15,3 +15,5 @@ Game Search:
 - MVVM (Model-View-ViewModel): For structuring the application to separate UI from business logic.
 - Room: For local database management, allowing persistent storage of game data.
 - Coroutines: For handling asynchronous tasks and managing background operation
+
+![image](https://github.com/user-attachments/assets/73faf4b2-da8d-4048-86de-c769777990ee)
